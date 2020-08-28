@@ -1,0 +1,19 @@
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: windows
+  arch: arm64
+  variant: 7
+  version: 1803
+
+steps:
+  - name: build
+    build:
+      image: octocat/hello-world
+      labels:
+        foo: bar
+        baz: qux
+  - name: push
+    push: xxxx

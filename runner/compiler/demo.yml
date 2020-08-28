@@ -1,0 +1,16 @@
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: build
+    image: maven:3.6.3-openjdk-8-slim
+    commands:
+      - mvn -U clean package -Dmaven.test.skip=true
+    volumes:
+      - name: repository
+        path: /root/.m2

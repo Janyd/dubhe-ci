@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package dubhe_ci.rpc;
+
+option go_package = ".;pb";
+option java_package = "cn.janyd.grpc";
+
+message Page {
+    uint32 current = 1;
+    uint32 size = 2;
+    int64 total = 3;
+    repeated string desc = 4;
+    repeated string asc = 5;
+}

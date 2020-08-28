@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package dubhe_ci.rpc;
+option go_package = ".;pb";
+option java_package = "cn.janyd.grpc";
+
+message Empty {
+}
+
+message Id {
+    string id = 1;
+}

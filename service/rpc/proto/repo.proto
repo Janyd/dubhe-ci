@@ -1,0 +1,40 @@
+syntax = "proto3";
+import public "page.proto";
+import public "common.proto";
+
+package dubhe_ci.rpc;
+option go_package = ".;pb";
+option java_package = "cn.janyd.grpc";
+
+message Repo {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string url = 4;
+    string credentialId = 5;
+    bool active = 6;
+    uint32 counter = 7;
+    int32 timeout = 8;
+    string config = 9;
+    int64 createdAt = 10;
+    int64 updatedAt = 11;
+}
+
+
+message RepoRecords {
+    dubhe_ci.rpc.Page page = 1;
+    repeated Repo repos = 2;
+}
+
+service Repository {
+    rpc List (dubhe_ci.rpc.Page) returns (RepoRecords) {
+    };
+
+    rpc Create(Repo) returns(Repo) {};
+
+    rpc Find(dubhe_ci.rpc.Id) returns(Repo) {};
+
+    rpc Update(Repo) returns(dubhe_ci.rpc.Empty) {};
+
+    rpc Delete(dubhe_ci.rpc.Id) returns(dubhe_ci.rpc.Empty) {};
+}

@@ -1,0 +1,63 @@
+syntax = "proto3";
+import public "page.proto";
+import public "common.proto";
+
+package dubhe_ci.rpc;
+option go_package = ".;pb";
+option java_package = "cn.janyd.grpc";
+
+message Build {
+    string  id = 1;
+    int64   repoId = 2;
+    string  branch = 3;
+    string  trigger = 4;
+    uint32  number = 5;
+    string  status = 6;
+    string  error = 7;
+    string  event = 8;
+    int64   startedAt = 9;
+    int64   finishedAt = 10;
+    int64   createdAt = 11;
+    int64   updatedAt = 12;
+}
+
+message BuildRecords {
+    dubhe_ci.rpc.Page page = 1;
+    repeated Build builds = 2;
+}
+
+message Step {
+    string  id = 1;
+    int64   repoId = 2;
+    string  buildId = 3;
+    uint32  number = 4;
+    string  name = 5;
+    string  status = 6;
+    string  error = 7;
+    string  exitCode = 8;
+    int64   startedAt = 9;
+    int64   stoppedAt = 10;
+    int64   createdAt = 11;
+    int64   updatedAt = 12;
+}
+
+message Steps {
+    repeated Step records = 1;
+}
+
+message BuildListRequest {
+    dubhe_ci.rpc.Page page = 1;
+    string repoId = 2;
+    string branchId = 3;
+}
+
+service BuildService {
+    rpc List(BuildListRequest) returns (BuildRecords) {};
+
+    rpc Find(dubhe_ci.rpc.Id) returns(Build) {};
+
+    rpc Delete(dubhe_ci.rpc.Id) returns(dubhe_ci.rpc.Empty) {};
+
+    rpc ListStep(dubhe_ci.rpc.Id) returns(Steps) {};
+
+}
